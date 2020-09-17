@@ -1,4 +1,4 @@
-from dragonfly import FuncContext
+from dragonfly import FuncContext, Grammar
 from mycastervoice import Plugin
 
 from castertmux.tmux import Tmux
@@ -24,18 +24,25 @@ def pane_cmd(tmux=None, check_value=None):
         # Is the process running in in the parent shell
         # of the current pane?
         if splits[0] == pane_parent_pid:
-            if splits[1] == check_value:
+            command_name = splits[1].split('/')[-1]
+            print(command_name)
+            if command_name == check_value:
                 return True
 
 class TmuxPlugin(Plugin):
+
+    _grammar = None
 
     def __init__(self):
 
         self.tmux = Tmux()
         super().__init__()
 
-    def get_rules(self):
-        return [TmuxRule(self.tmux)]
+    def get_grammars(self):
+        if TmuxPlugin._grammar is None:
+            TmuxPlugin._grammar = Grammar("Tmux")
+            TmuxPlugin._grammar.add_rule(TmuxRule(self.tmux))
+        return [TmuxPlugin._grammar]
 
     def get_context(self, desired_context=None):
         from dragonfly import FuncContext

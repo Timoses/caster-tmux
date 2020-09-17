@@ -13,6 +13,7 @@ def pane_cmd(tmux=None, check_value=None):
 
     # most often the shell
     pane_parent_pid = _session.attached_window.attached_pane.get('pane_pid')
+    print(_session.attached_window.attached_pane.values())
     import subprocess
     ps = subprocess.Popen(['ps', '-a', '-o', 'ppid,comm'], stdout=subprocess.PIPE, universal_newlines=True)
     ps.wait()
@@ -25,7 +26,6 @@ def pane_cmd(tmux=None, check_value=None):
         # of the current pane?
         if splits[0] == pane_parent_pid:
             command_name = splits[1].split('/')[-1]
-            print(command_name)
             if command_name == check_value:
                 return True
 

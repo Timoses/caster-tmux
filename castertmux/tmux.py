@@ -58,7 +58,11 @@ class Tmux(object):
         if _node.results[-1][0] == 'full':
             args += "f"
 
-        self._session.attached_window.cmd('split-window', args)
+        # open pane in same directory
+        current_path = self._session.attached_window.attached_pane.get('pane_current_path')
+        args = [args, '-c', current_path[0]]
+
+        self._session.attached_window.cmd('split-window', *args)
 
 
     def pane_close(self):

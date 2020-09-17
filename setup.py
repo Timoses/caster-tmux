@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="castertmux",
+    name="caster-plugins",
     version="0.0.1",
     author="Timo Funke",
     author_email="timosesu@gmail.com",
-    description="Tmux plugin for Caster",
+    description="Plugins for Caster",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/timoses/caster-tmux",
+    url="https://github.com/timoses/caster-plugins",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

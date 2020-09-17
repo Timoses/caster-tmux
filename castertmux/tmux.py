@@ -60,7 +60,7 @@ class Tmux(object):
 
         # open pane in same directory
         current_path = self._session.attached_window.attached_pane.get('pane_current_path')
-        args = [args, '-c', current_path[0]]
+        args = [args, '-c', current_path]
 
         self._session.attached_window.cmd('split-window', *args)
 

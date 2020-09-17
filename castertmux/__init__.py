@@ -11,23 +11,38 @@ def pane_cmd(tmux=None, check_value=None):
 
     _session = tmux._session
 
-    # most often the shell
-    pane_parent_pid = _session.attached_window.attached_pane.get('pane_pid')
-    print(_session.attached_window.attached_pane.values())
+    pane = _session.attached_window.attached_pane
+
+    pane_cmd = pane.get('pane_current_command')
+    if pane_cmd == check_value:
+        return True
+
+    # try finding a child process which has check_value
     import subprocess
-    ps = subprocess.Popen(['ps', '-a', '-o', 'ppid,comm'], stdout=subprocess.PIPE, universal_newlines=True)
+    ps = subprocess.Popen(['ps', '-a', '-o', 'pid,ppid,comm'], stdout=subprocess.PIPE, universal_newlines=True)
     ps.wait()
-    stdout, _O = ps.communicate()
-    if stdout is None:
-        return False
-    for row in stdout.split('\n'):
-        splits = row.strip().split(' ')
-        # Is the process running in in the parent shell
-        # of the current pane?
-        if splits[0] == pane_parent_pid:
-            command_name = splits[1].split('/')[-1]
-            if command_name == check_value:
-                return True
+    processes = list(map(lambda row: row.split(), ps.communicate()[0].split('\n')[1:-1]))
+
+
+    def find_child(pid):
+        # Find if a process that has pid as parent
+        for p in processes:
+            if p[1] == pid:
+                return p[0]
+        return 0
+
+    current_pid = pane.get('pane_pid')
+    # Find all children
+    while True:
+        current_pid = find_child(current_pid)
+        # No more children?
+        if not current_pid:
+            return False
+        else:
+            for p in processes:
+                if p[0] == current_pid:
+                    if p[2].split('/')[-1] == check_value:
+                        return True
 
 class TmuxPlugin(Plugin):
 

@@ -47,10 +47,10 @@ class GitPlugin(Plugin):
 
     """Docstring for DictationPlugin. """
 
-    def __init__(self):
+    def __init__(self, name):
         """TODO: to be defined. """
 
-        super().__init__()
+        super().__init__(name)
 
     def get_grammars(self):
         grammar = Grammar(name="Git")

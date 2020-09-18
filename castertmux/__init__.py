@@ -48,10 +48,10 @@ class TmuxPlugin(Plugin):
 
     _grammar = None
 
-    def __init__(self):
+    def __init__(self, name):
 
         self.tmux = Tmux()
-        super().__init__()
+        super().__init__(name)
 
     def get_grammars(self):
         if TmuxPlugin._grammar is None:

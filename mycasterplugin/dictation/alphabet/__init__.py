@@ -79,10 +79,10 @@ class AlphabetPlugin(Plugin):
 
     _instance = None
 
-    def __init__(self):
+    def __init__(self, name):
         """TODO: to be defined. """
 
-        super().__init__()
+        super().__init__(name)
 
     @staticmethod
     def get_rules():

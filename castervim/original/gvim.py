@@ -25,9 +25,9 @@ release = Key("shift:up, ctrl:up")
 normal_CCR_rules = [
     RuleRef(rule = action.ActionRule()),
     RuleRef(rule = motion.MotionRule()),
-    RuleRef(rule = surround.SurroundRule()),
+    #RuleRef(rule = surround.SurroundRule()),
     RuleRef(rule = diff.DiffRule()),
-    RuleRef(rule = unimpaired.UnimpairedRule()),
+    #RuleRef(rule = unimpaired.UnimpairedRule()),
     RuleRef(rule = general.GeneralRule()),
 ]
 
@@ -48,14 +48,14 @@ class NormalModeCCR(CompoundRule):
 
 # b. What rules should not be chainable?
 normal_single_rules = [
-    RuleRef(rule = easy_motion.EasyMotionRule()),
+    #RuleRef(rule = easy_motion.EasyMotionRule()),
     RuleRef(rule = navigation.NavigationRule()),
     RuleRef(rule = netrw.NetrwRule()),
-    RuleRef(rule = ctrlp.CtrlPRule()),
+    #RuleRef(rule = ctrlp.CtrlPRule()),
     RuleRef(rule = buffer.BufferRule()),
     RuleRef(rule = quick_replace.QuickReplaceRule()),
     RuleRef(rule = quick_settings.QuickSettingsRule()),
-    RuleRef(rule = fugitive.FugitiveRule()),
+    #RuleRef(rule = fugitive.FugitiveRule()),
 ]
 normal_single_action = Alternative(normal_single_rules, name = "normal_mode_single_action")
 
@@ -153,7 +153,7 @@ insertModeGrammar = Grammar("Insert Mode grammar", context=gvim_context)
 # insertModeGrammar.add_rule(InsertModeCCR())
 insertModeGrammar.add_rule(InsertModeCommands())
 insertModeGrammar.add_rule(InsertModeDisabler())
-insertModeGrammar.add_rule(snipmate.SnipMateRule())
+#insertModeGrammar.add_rule(snipmate.SnipMateRule())
 insertModeGrammar.add_rule(deoplete.DeopleteRule())
 #insertModeGrammar.load()
 #insertModeGrammar.disable()

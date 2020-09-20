@@ -38,8 +38,8 @@ class Tmux(object):
         else:
             self._session.attached_window.select_pane(defaults['n'])
 
-    def pane_n(self, **defaults):
-        self._session.attached_window.select_pane(defaults['n'])
+    def pane_n(self, pane_number):
+        self._session.attached_window.select_pane(pane_number)
 
     def pane_zoom(self):
         self._session.attached_window.attached_pane.cmd('resize-pane', '-Z')

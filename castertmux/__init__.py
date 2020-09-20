@@ -2,7 +2,7 @@ from dragonfly import FuncContext, Grammar
 from mycastervoice import Plugin
 
 from castertmux.tmux import Tmux
-from castertmux.grammar import TmuxRule
+from castertmux.grammar import get_rules
 
 def pane_cmd(tmux=None, check_value=None):
     # This context requires an check_value
@@ -56,7 +56,9 @@ class TmuxPlugin(Plugin):
     def get_grammars(self):
         if TmuxPlugin._grammar is None:
             TmuxPlugin._grammar = Grammar("Tmux")
-            TmuxPlugin._grammar.add_rule(TmuxRule(self.tmux))
+            for rule in get_rules(self.tmux):
+                TmuxPlugin._grammar.add_rule(rule)
+            #TmuxPlugin._grammar.add_rule(TmuxRule(self.tmux))
         return [TmuxPlugin._grammar]
 
     def get_context(self, desired_context=None):

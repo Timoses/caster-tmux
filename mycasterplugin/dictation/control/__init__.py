@@ -17,7 +17,7 @@ if system == "Darwin":
     WORD_DELETE_MODIFIER = "a"
     DELETE_DIR = { "left": "backspace",
                    "right": "delete" }
-elif system == "Windows":
+else:
     JUMP_WALL = { "left": "home",
                   "right": "end",
                   "up": "c-home",

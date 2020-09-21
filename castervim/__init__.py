@@ -32,3 +32,12 @@ class Vim(Plugin):
         insertModeGrammar.load()
         commandModeGrammar.load()
 
+    def enable(self):
+        super().enable()
+        insertModeGrammar.enable()
+        commandModeGrammar.enable()
+
+    def disable(self):
+        super().disable()
+        insertModeGrammar.disable()
+        commandModeGrammar.disable()

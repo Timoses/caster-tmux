@@ -1,4 +1,4 @@
-from dragonfly import MappingRule, Key, IntegerRef, Text
+from dragonfly import MappingRule, Key, IntegerRef, Text, Repeat
 # FIXME: Just import config
 from ..vim_config import get_config
 
@@ -38,8 +38,9 @@ class NavigationRule(MappingRule):
         "win equal": Key("c-w, equal"),
 
         # Tabs:
-        "[<n>] tab right": Key("g, t"),
-        "[<n>] tab left": Key("g, s-t"),
+        "[<n>] tab right": Key("g, t") * Repeat(extra="n"),
+        "[<n>] tab left": Key("g, s-t") * Repeat(extra="n"),
+        "tab [<n>]": Key("%(n)d, g, t"),
 
         # New:
         "new tab": Key("colon") + Text("tabnew") + Key("enter"),

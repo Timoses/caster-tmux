@@ -1,5 +1,5 @@
 from dragonfly import FuncContext, Grammar
-from mycastervoice import Plugin
+from castervoice import Plugin
 
 from castertmux.tmux import Tmux
 from castertmux.grammar import get_rules
@@ -46,20 +46,16 @@ def pane_cmd(tmux=None, check_value=None):
 
 class TmuxPlugin(Plugin):
 
-    _grammar = None
-
-    def __init__(self, name):
+    def __init__(self, manager):
 
         self.tmux = Tmux()
-        super().__init__(name)
+        super().__init__(manager)
 
     def get_grammars(self):
-        if TmuxPlugin._grammar is None:
-            TmuxPlugin._grammar = Grammar("Tmux")
-            for rule in get_rules(self.tmux):
-                TmuxPlugin._grammar.add_rule(rule)
-            #TmuxPlugin._grammar.add_rule(TmuxRule(self.tmux))
-        return [TmuxPlugin._grammar]
+        grammar = Grammar("Tmux")
+        for rule in get_rules(self.tmux):
+            grammar.add_rule(rule)
+        return [grammar]
 
     def get_context(self, desired_context=None):
         from dragonfly import FuncContext

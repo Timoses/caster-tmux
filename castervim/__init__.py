@@ -1,11 +1,11 @@
-from mycastervoice import Plugin
+from castervoice import Plugin
 
 from castervim.original.gvim import normalModeGrammar, insertModeBootstrap, commandModeBootstrap, insertModeGrammar, commandModeGrammar
 
 class Vim(Plugin):
 
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, manager):
+        super().__init__(manager)
 
     def get_grammars(self):
         return [normalModeGrammar, insertModeBootstrap, commandModeBootstrap]
@@ -23,7 +23,6 @@ class Vim(Plugin):
         return context
 
     def _apply_context(self, context=None):
-        super().apply_context()
         insertModeGrammar._context = context
         commandModeGrammar._context = context
 

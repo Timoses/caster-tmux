@@ -1,6 +1,6 @@
 from dragonfly import MappingRule, Text, Key, Grammar
 
-from mycastervoice import Plugin
+from castervoice import Plugin
 
 
 class GitRule(MappingRule):
@@ -47,10 +47,10 @@ class GitPlugin(Plugin):
 
     """Docstring for DictationPlugin. """
 
-    def __init__(self, name):
+    def __init__(self, manager):
         """TODO: to be defined. """
 
-        super().__init__(name)
+        super().__init__(manager)
 
     def get_grammars(self):
         grammar = Grammar(name="Git")

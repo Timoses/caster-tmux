@@ -1,7 +1,7 @@
 from dragonfly import MappingRule, Function, Grammar
 
-from mycastervoice import Plugin
-from mycastervoice.core import get_controller
+from castervoice import Plugin
+from castervoice.core import Controller
 
 _plugin_name = None
 _plugins_are_asleep = False
@@ -16,7 +16,7 @@ def sleep():
         return
 
     assert(len(_sleeping_plugins) == 0) # Ups, did I forget to wake someone?
-    for plugin in get_controller().plugin_manager.plugins:
+    for plugin in Controller.get().plugin_manager.plugins:
         if plugin.name != _plugin_name:
             _sleeping_plugins.append(plugin)
             plugin.disable()
@@ -57,12 +57,12 @@ class ControlPlugin(Plugin):
 
     """Docstring for DictationPlugin. """
 
-    def __init__(self, name):
+    def __init__(self, manager):
         """TODO: to be defined. """
 
+        super().__init__(manager)
         global _plugin_name
-        _plugin_name = name
-        super().__init__(name)
+        _plugin_name = self.name
 
     def get_grammars(self):
         grammar = Grammar(name="Control")

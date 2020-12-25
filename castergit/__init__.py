@@ -36,8 +36,12 @@ class GitRule(MappingRule):
             Text("git tag "),
         "(git add partial)":
             Text("git add -p") + Key("enter"),
+        "git add":
+            Text("git add "),
         "git push":
             Text("git push "),
+        "git check out":
+            Text("git checkout "),
     }
     extras = [
     ]

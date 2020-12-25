@@ -1,6 +1,6 @@
 from castervoice import Plugin
 
-from castervim.original.gvim import normalModeGrammar, insertModeBootstrap, commandModeBootstrap, insertModeGrammar, commandModeGrammar
+from caster_timoses.vim.original.gvim import normalModeGrammar, insertModeBootstrap, commandModeBootstrap, insertModeGrammar, commandModeGrammar
 
 class Vim(Plugin):
 

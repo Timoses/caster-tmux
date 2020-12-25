@@ -1,6 +1,6 @@
 from libtmux import Server
 
-from castertmux.grammar import Direction
+from caster_timoses.tmux.grammar import Direction
 
 class Tmux(object):
     _server  = None

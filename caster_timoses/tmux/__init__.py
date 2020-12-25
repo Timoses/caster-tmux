@@ -1,8 +1,8 @@
 from dragonfly import FuncContext, Grammar
 from castervoice import Plugin
 
-from castertmux.tmux import Tmux
-from castertmux.grammar import get_rules
+from caster_timoses.tmux.tmux import Tmux
+from caster_timoses.tmux.grammar import get_rules
 
 def pane_cmd(tmux=None, check_value=None):
     # This context requires an check_value

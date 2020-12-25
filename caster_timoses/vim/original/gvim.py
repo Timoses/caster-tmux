@@ -4,9 +4,9 @@
 # ptvsd.wait_for_attach()
 
 from dragonfly import *
-from castervim.original.rules import action, motion, object, navigation, buffer, quick_replace, quick_settings, diff, general
-from castervim.original.plugins import surround, easy_motion, netrw, ctrlp, fugitive, unimpaired, snipmate, deoplete
-from castervim.original.vim_config import get_config
+from caster_timoses.vim.original.rules import action, motion, object, navigation, buffer, quick_replace, quick_settings, diff, general
+from caster_timoses.vim.original.plugins import surround, easy_motion, netrw, ctrlp, fugitive, unimpaired, snipmate, deoplete
+from caster_timoses.vim.original.vim_config import get_config
 #from libtmux import Server
 #try:
 #    import pkg_resources
@@ -68,8 +68,8 @@ class NormalModeSingleAction(CompoundRule):
         release.execute()
 
 ### 2. Insert mode
-from castervim.original.rules.insert_mode import InsertModeStartRule, InsertModeFinishRule
-from castervim.original.rules.insert_mode import InsertModeCommands, InsertModeCCR
+from caster_timoses.vim.original.rules.insert_mode import InsertModeStartRule, InsertModeFinishRule
+from caster_timoses.vim.original.rules.insert_mode import InsertModeCommands, InsertModeCCR
 # create continuous resolution for insert mode, too
 
 # Inherit all mappings, extras, defaults from InsertModeStartRule
@@ -92,7 +92,7 @@ class InsertModeDisabler(InsertModeFinishRule):
         print("\n(NORMAL)")
 
 ### 3. Command mode
-from castervim.original.rules.command_mode import CommandModeStartRule, CommandModeFinishRule, CommandModeCommands
+from caster_timoses.vim.original.rules.command_mode import CommandModeStartRule, CommandModeFinishRule, CommandModeCommands
 
 class CommandModeEnabler(CommandModeStartRule):
     def _process_recognition(self, node, extras):

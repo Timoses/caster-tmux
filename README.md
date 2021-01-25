@@ -1,6 +1,10 @@
 # caster-plugins
 Plugins for Caster
 
+## Keepass Plugin
+
+*Warning: Not security vetted!*
+
 ## Credits
 
 * castervim

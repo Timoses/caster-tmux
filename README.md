@@ -26,6 +26,25 @@ plugins:
       path: <keepass_db_path>
 ```
 
+## Tmux Plugin
+
+Default mode is that Tmux connects to the local Tmux server through the library `libtmux`.
+This has the advantage that your existing keyboard shortcuts in Tmux do not impact this plugin's
+functionality.
+
+It is also possible to emulate key strokes by setting the configuration parameter `emulate_keys: True`.
+Some functionality may not be available in emulated mode.
+
+### Configuration
+
+```
+plugins:
+  config:
+    caster_timoses.tmux:
+      # default: False
+      emulate_keys: <boolean>
+```
+
 
 ## Credits
 

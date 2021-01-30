@@ -48,12 +48,26 @@ class TmuxPlugin(Plugin):
 
     def __init__(self, manager):
 
-        self.tmux = Tmux()
         super().__init__(manager)
+
+        if 'emulate_keys' in self.config and bool(self.config['emulate_keys']):
+            self.emulate_keys = True
+        else:
+            self.emulate_keys = False
+
+        if 'prefix_letter' in self.config:
+            self.prefix_letter = self.config['prefix_letter']
+        else:
+            self.prefix_letter = 'a'
+
+        if self.emulate_keys:
+            self.tmux = None
+        else:
+            self.tmux = Tmux()
 
     def get_grammars(self):
         grammar = Grammar("Tmux")
-        for rule in get_rules(self.tmux):
+        for rule in get_rules(self.emulate_keys, self.prefix_letter, self.tmux):
             grammar.add_rule(rule)
         return [grammar]
 

@@ -1,12 +1,12 @@
-from dragonfly import Repeat, Pause, Function, Choice, MappingRule, Dictation, IntegerRef, Context
+from dragonfly import Repeat, Pause, Function, Choice, MappingRule, Dictation, IntegerRef, Context, Key
 
 from enum import Enum
 
 class Direction(Enum):
-    LEFT = 1
-    RIGHT = 2
-    UP = 3
-    DOWN = 4
+    LEFT = 'h'
+    RIGHT = 'l'
+    UP = 'k'
+    DOWN = 'j'
 
 from dragonfly import RecognitionObserver, RecognitionHistory
 from six import integer_types
@@ -52,21 +52,26 @@ class RuleContext(Context):
 
 
 
-def get_rules(tmux):
+def get_rules(emulate, prefix_letter, tmux=None):
 
     class TmuxRule(MappingRule):
 
         mapping = {
             "(window new)":
-                Function(tmux.window_new),
+                Key('c-%s, c' % (prefix_letter)) if emulate
+                else Function(tmux.window_new),
             "(window close)":
-                Function(tmux.window_close),
+                Key('c-%s, &' % (prefix_letter)) if emulate
+                else Function(tmux.window_close),
             "(window (<n>|last))":
-                Function(tmux.window_n),
+                Key('c-%s, %(n)' % (prefix_letter)) if emulate
+                else Function(tmux.window_n),
             "pane (<dir>|<n>)":
-                Function(tmux.pane_dir_n),
+                Key('c-%s, %(dir)' % (prefix_letter)) if emulate
+                else Function(tmux.pane_dir_n),
             "pane (zoom|unzoom)":
-                Function(tmux.pane_zoom),
+                Key('c-%s, z' % (prefix_letter)) if emulate
+                else Function(tmux.pane_zoom),
             "pane new <dir> [full]":
                 Function(tmux.pane_new),
             "pane close":
@@ -113,13 +118,13 @@ def get_rules(tmux):
                 "nth": ""
         }
 
-    class TmuxPane(MappingRule):
-        mapping = {
-            "<pane_number>": Function(tmux.pane_n)
-        }
-        context = RuleContext(TmuxRule, "pane")
-        extras = [
-            IntegerRef(name="pane_number", min=0, max=25)
-        ]
+#    class TmuxPane(MappingRule):
+#        mapping = {
+#            "<pane_number>": Function(tmux.pane_n)
+#        }
+#        context = RuleContext(TmuxRule, "pane")
+#        extras = [
+#            IntegerRef(name="pane_number", min=0, max=25)
+#        ]
 
-    return [TmuxRule(), TmuxPane()]
+    return [TmuxRule()] #, TmuxPane()]

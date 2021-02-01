@@ -23,6 +23,8 @@ def sleep():
 
     _plugins_are_asleep = True
 
+    # Wait until user presses a key
+    #input()
 
 def wake():
     global _plugin_name

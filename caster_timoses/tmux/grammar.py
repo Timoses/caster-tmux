@@ -64,22 +64,26 @@ def get_rules(emulate, prefix_letter, tmux=None):
                 Key('c-%s, &' % (prefix_letter)) if emulate
                 else Function(tmux.window_close),
             "(window (<n>|last))":
-                Key('c-%s, %(n)' % (prefix_letter)) if emulate
+                Key('c-' + prefix_latter + ', %(n)') if emulate
                 else Function(tmux.window_n),
             "pane (<dir>|<n>)":
-                Key('c-%s, %(dir)' % (prefix_letter)) if emulate
+                Key('c-' + prefix_letter + ', %(dir)') if emulate
                 else Function(tmux.pane_dir_n),
             "pane (zoom|unzoom)":
                 Key('c-%s, z' % (prefix_letter)) if emulate
                 else Function(tmux.pane_zoom),
             "pane new <dir> [full]":
-                Function(tmux.pane_new),
+                Key('ctrl') if emulate
+                else Function(tmux.pane_new),
             "pane close":
-                Function(tmux.pane_close),
+                Key('ctrl') if emulate
+                else Function(tmux.pane_close),
             "pane":
-                Function(tmux.pane_display),
+                Key('ctrl') if emulate
+                else Function(tmux.pane_display),
             "layout [(<layout>|even)]":
-                Function(tmux.layout),
+                Key('ctrl') if emulate
+                else Function(tmux.layout),
         }
 
         extras = [

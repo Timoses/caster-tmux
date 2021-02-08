@@ -37,6 +37,7 @@ class KeepassPlugin(Plugin):
         mapping = {}
         for words, entry in self.entries.items():
             mapping.update({'key pass ' + words: Text(entry.password)})
+            mapping.update({'key user ' + words: Text(entry.username)})
 
         rule = MappingRule(mapping=mapping)
         grammar = Grammar(name="Keepass")

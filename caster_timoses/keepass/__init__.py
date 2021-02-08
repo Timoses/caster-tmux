@@ -2,7 +2,7 @@ from getpass import getpass
 
 from pykeepass import PyKeePass
 
-from dragonfly import MappingRule, Grammar, Text
+from dragonfly import MappingRule, Grammar, Text, Key
 
 from castervoice import Plugin
 
@@ -38,6 +38,7 @@ class KeepassPlugin(Plugin):
         for words, entry in self.entries.items():
             mapping.update({'key pass ' + words: Text(entry.password)})
             mapping.update({'key user ' + words: Text(entry.username)})
+            mapping.update({'key tab ' + words: Text(entry.username) + Key('tab') + Text(entry.password)})
 
         rule = MappingRule(mapping=mapping)
         grammar = Grammar(name="Keepass")
